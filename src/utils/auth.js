@@ -14,3 +14,18 @@ export const checkUserAuth = (req, res, next) => {
         res.status(500).json({ message: err.message })
     }
 }
+
+export const checkArtistAuth = (req, res, next) => {
+    try {
+        const token = req.headers.authorization?.split(' ')?.[1] ?? ''
+        const artist = jwt.verify(token, process.env.SECRET_KEY)
+
+        if (!artist) res.status(400).json({ message: 'Artist is not authenticated' })
+        else {
+            res.artist = artist
+            next()
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}

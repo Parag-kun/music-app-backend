@@ -14,6 +14,17 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/search', async (req, res) => {
+    try {
+        const songs = await Song.find({})
+        const filteredSongs = songs.filter(({ title }) => title.includes(req.query.songName))
+
+        res.status(200).json({ message: 'Search results', songs: filteredSongs })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
 router.get('/:id', async (req, res) => {
     try {
         const song = await Song.findOne({ _id: req.params.id })

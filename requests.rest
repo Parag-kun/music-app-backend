@@ -6,8 +6,8 @@ POST http://localhost:4000/users/login
 Content-Type: application/json
 
 {
-    "name": "Parag",
-    "password": "123"
+    "email": "kk6991@srmist.edu.i",
+    "password": "kk699"
 }
 
 ###
@@ -18,7 +18,7 @@ Content-Type: application/json
 {
     "name": "Parag",
     "password": "123",
-    "email": "parag123@gmail.com",
+    "email": "parag123@gmail.co",
     "DOB": "2001"
 }
 
@@ -26,31 +26,37 @@ Content-Type: application/json
 
 PUT http://localhost:4000/users/addToliked
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjRhZTIyZGY2NWMxYWE2YzdjNmRkOTkiLCJuYW1lIjoiUGFyYWciLCJlbWFpbCI6InBhcmFnMTIzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJC51YUVlYUtGQm9yZURhVkY5RGpQYU9TM040UGVpYkg3S3VHcUNsQS85V0tzb0FGUWJaL1FLIiwiRE9CIjoiMjAwMS0wMS0wMVQwMDowMDowMC4wMDBaIiwicGxheWxpc3RzIjpbXSwibGlrZWRTb25ncyI6W10sIl9fdiI6MH0.toVudYRerlgnM2C_8wMC3H-fyPysQk1oZJYlLPSu7xY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjdiZjFmZmM5MGNhZTY0Nzk5Mzc3MzUiLCJlbWFpbCI6ImtrNjk5MUBzcm1pc3QuZWR1LmluIiwicGFzc3dvcmQiOiIkMmEkMTAkbVo0ckd1NkJ4VWNGZGZFZ3N2SFhmT1I0aEVrWnEyc05KdkFUOU5aZlRQUTBCWHIvMm9BZGkiLCJwbGF5bGlzdHMiOltdLCJsaWtlZFNvbmdzIjpbXSwiX192IjowfQ.j8DcQC5puWfOZ6ptG--xB9a_QmHmsjQV38cJYUA5mXc
 
 {
-    "id": "62483a569baca54f33d13ea8"
+    "id": "62483a809baca54f33d13eaa"
 }
 
 ###
 
 POST http://localhost:4000/users/createPlaylist
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjRhZTIyZGY2NWMxYWE2YzdjNmRkOTkiLCJuYW1lIjoiUGFyYWciLCJlbWFpbCI6InBhcmFnMTIzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJC51YUVlYUtGQm9yZURhVkY5RGpQYU9TM040UGVpYkg3S3VHcUNsQS85V0tzb0FGUWJaL1FLIiwiRE9CIjoiMjAwMS0wMS0wMVQwMDowMDowMC4wMDBaIiwicGxheWxpc3RzIjpbXSwibGlrZWRTb25ncyI6W10sIl9fdiI6MH0.toVudYRerlgnM2C_8wMC3H-fyPysQk1oZJYlLPSu7xY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjdiZjFmZmM5MGNhZTY0Nzk5Mzc3MzUiLCJlbWFpbCI6ImtrNjk5MUBzcm1pc3QuZWR1LmluIiwicGFzc3dvcmQiOiIkMmEkMTAkbVo0ckd1NkJ4VWNGZGZFZ3N2SFhmT1I0aEVrWnEyc05KdkFUOU5aZlRQUTBCWHIvMm9BZGkiLCJwbGF5bGlzdHMiOltdLCJsaWtlZFNvbmdzIjpbXSwiX192IjowfQ.j8DcQC5puWfOZ6ptG--xB9a_QmHmsjQV38cJYUA5mXc
 
 {
-    "genre": "horror"
+    "genre": "rock"
 }
 
 ###
 
-PUT http://localhost:4000/users/addToPlayList/624c354307aa6e885b0039c0
+PUT http://localhost:4000/users/addToPlayList/627bfe9e24fbe6e6b01d452a
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjRhZTIyZGY2NWMxYWE2YzdjNmRkOTkiLCJuYW1lIjoiUGFyYWciLCJlbWFpbCI6InBhcmFnMTIzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJC51YUVlYUtGQm9yZURhVkY5RGpQYU9TM040UGVpYkg3S3VHcUNsQS85V0tzb0FGUWJaL1FLIiwiRE9CIjoiMjAwMS0wMS0wMVQwMDowMDowMC4wMDBaIiwicGxheWxpc3RzIjpbXSwibGlrZWRTb25ncyI6W10sIl9fdiI6MH0.toVudYRerlgnM2C_8wMC3H-fyPysQk1oZJYlLPSu7xY
 
 {
     "id": "62483a809baca54f33d13eaa"
 }
+
+###
+
+GET http://localhost:4000/users/allPlaylists
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjdiZjFmZmM5MGNhZTY0Nzk5Mzc3MzUiLCJlbWFpbCI6ImtrNjk5MUBzcm1pc3QuZWR1LmluIiwicGFzc3dvcmQiOiIkMmEkMTAkbVo0ckd1NkJ4VWNGZGZFZ3N2SFhmT1I0aEVrWnEyc05KdkFUOU5aZlRQUTBCWHIvMm9BZGkiLCJwbGF5bGlzdHMiOltdLCJsaWtlZFNvbmdzIjpbXSwiX192IjowfQ.j8DcQC5puWfOZ6ptG--xB9a_QmHmsjQV38cJYUA5mXc
 
 ###
 
@@ -61,6 +67,25 @@ GET http://localhost:4000/songs
 GET http://localhost:4000/songs/62483a569baca54f33d13ea8
 
 ###
+GET http://localhost:4000/songs/search?songName=g
 
+###
+
+
+# Artists
+GET http://localhost:4000/artists
+
+###
+POST http://localhost:4000/artists/search?artistName=
+
+###
+POST http://localhost:4000/artists/register
+Content-Type: application/json
+
+{
+    "email": "kk6991@srmist.edu.in",
+    "password": "kk6991",
+    "name": "Kishan Kumar",
+}
 
 

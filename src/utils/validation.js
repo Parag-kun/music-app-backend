@@ -3,9 +3,9 @@ import bcryptjs from "bcryptjs"
 import User from "../models/user.js"
 import Artist from '../models/artist.js'
 
-export const validateUserLogin = async ({ body: { name, password } }, res, next) => {
+export const validateUserLogin = async ({ body: { email, password } }, res, next) => {
     try {
-        const user = await User.findOne({ name })
+        const user = await User.findOne({ email })
         const match = await bcryptjs.compare(password, user?.password ?? '')
 
         if (!user) res.status(400).json({ message: 'User does not exist!' })
@@ -20,9 +20,9 @@ export const validateUserLogin = async ({ body: { name, password } }, res, next)
     }
 }
 
-export const validateUserRegister = async ({ body: { name } }, res, next) => {
+export const validateUserRegister = async ({ body: { email } }, res, next) => {
     try {
-        const user = await User.exists({ name })
+        const user = await User.exists({ email })
 
         if (user) res.status(400).json({ message: 'User already exists!' })
         else next()

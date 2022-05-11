@@ -4,11 +4,23 @@ const { Schema, model } = mongoose
 
 const userSchema = new Schema({
     name: String,
-    email: String,
-    password: String,
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
     DOB: Schema.Types.Date,
-    playlists: [Schema.Types.ObjectId],
-    likedSongs: [Schema.Types.ObjectId]
+    playlists: {
+        type: [Schema.Types.ObjectId],
+        default: []
+    },
+    likedSongs: {
+        type: [Schema.Types.ObjectId],
+        default: []
+    }
 })
 
 export default model('Users', userSchema)
