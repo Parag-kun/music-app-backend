@@ -8,7 +8,6 @@ import userRoute from './routes/users.js'
 import songRoute from './routes/song.js'
 import playlistRoute from './routes/playlist.js'
 import artistRoute from './routes/artist.js'
-import ServerlessHttp from "serverless-http"
 
 dotenv.config()
 
@@ -31,6 +30,4 @@ mongoose
     .then(() => console.log('mongo connected'))
     .then(() => app.listen(port, () => console.log('Server started at http://localhost:4000')))
     .catch(err => console.log(err))
-
-export default app
 
