@@ -28,6 +28,6 @@ const port = process.env.PORT || 4000
 mongoose
     .connect(process.env.MONGO_URL)
     .then(() => console.log('mongo connected'))
-    .then(() => app.listen(port, () => console.log('Server started at http://localhost:4000')))
+    .then(() => app.listen(port, () => console.log(`Server started at http://localhost:${port}`)))
     .catch(err => console.log(err))
 
