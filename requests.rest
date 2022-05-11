@@ -1,0 +1,66 @@
+GET http://localhost:4000
+
+###
+
+POST http://localhost:4000/users/login
+Content-Type: application/json
+
+{
+    "name": "Parag",
+    "password": "123"
+}
+
+###
+
+POST http://localhost:4000/users/register
+Content-Type: application/json
+
+{
+    "name": "Parag",
+    "password": "123",
+    "email": "parag123@gmail.com",
+    "DOB": "2001"
+}
+
+###
+
+PUT http://localhost:4000/users/addToliked
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjRhZTIyZGY2NWMxYWE2YzdjNmRkOTkiLCJuYW1lIjoiUGFyYWciLCJlbWFpbCI6InBhcmFnMTIzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJC51YUVlYUtGQm9yZURhVkY5RGpQYU9TM040UGVpYkg3S3VHcUNsQS85V0tzb0FGUWJaL1FLIiwiRE9CIjoiMjAwMS0wMS0wMVQwMDowMDowMC4wMDBaIiwicGxheWxpc3RzIjpbXSwibGlrZWRTb25ncyI6W10sIl9fdiI6MH0.toVudYRerlgnM2C_8wMC3H-fyPysQk1oZJYlLPSu7xY
+
+{
+    "id": "62483a569baca54f33d13ea8"
+}
+
+###
+
+POST http://localhost:4000/users/createPlaylist
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjRhZTIyZGY2NWMxYWE2YzdjNmRkOTkiLCJuYW1lIjoiUGFyYWciLCJlbWFpbCI6InBhcmFnMTIzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJC51YUVlYUtGQm9yZURhVkY5RGpQYU9TM040UGVpYkg3S3VHcUNsQS85V0tzb0FGUWJaL1FLIiwiRE9CIjoiMjAwMS0wMS0wMVQwMDowMDowMC4wMDBaIiwicGxheWxpc3RzIjpbXSwibGlrZWRTb25ncyI6W10sIl9fdiI6MH0.toVudYRerlgnM2C_8wMC3H-fyPysQk1oZJYlLPSu7xY
+
+{
+    "genre": "horror"
+}
+
+###
+
+PUT http://localhost:4000/users/addToPlayList/624c354307aa6e885b0039c0
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjRhZTIyZGY2NWMxYWE2YzdjNmRkOTkiLCJuYW1lIjoiUGFyYWciLCJlbWFpbCI6InBhcmFnMTIzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJC51YUVlYUtGQm9yZURhVkY5RGpQYU9TM040UGVpYkg3S3VHcUNsQS85V0tzb0FGUWJaL1FLIiwiRE9CIjoiMjAwMS0wMS0wMVQwMDowMDowMC4wMDBaIiwicGxheWxpc3RzIjpbXSwibGlrZWRTb25ncyI6W10sIl9fdiI6MH0.toVudYRerlgnM2C_8wMC3H-fyPysQk1oZJYlLPSu7xY
+
+{
+    "id": "62483a809baca54f33d13eaa"
+}
+
+###
+
+GET http://localhost:4000/songs
+
+###
+
+GET http://localhost:4000/songs/62483a569baca54f33d13ea8
+
+###
+
+
+
