@@ -21,6 +21,27 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/search', async (req, res) => {
+    try {
+        const artists = await Artist.find({})
+        const filteredArtists = artists.filter(({ name }) => name.includes(req.query.artistName))
+
+        res.status(200).json({ message: 'Search results', artists: filteredArtists })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
+router.get('/:id', async (req, res) => {
+    try {
+        const artist = await Artist.findById(req.params.id)
+
+        res.status(200).json({ message: 'Artist fetched', artist })
+    } catch (err) {
+        res.send(500).json({ message: err.message })
+    }
+})
+
 router.post('/login', validateArtistLogin, (req, res) => {
     res.status(200).json({ token: generateToken(res.artist) })
 })
@@ -49,13 +70,20 @@ router.post('/register', validateArtistRegister, async (req, res) => {
     }
 })
 
-router.get('/:id', async (req, res) => {
+router.put('/', checkArtistAuth, async (req, res) => {
     try {
-        const artist = await Artist.findById(req.params.id)
+        const { artist } = res
+        const { name, age, photo } = req.body
+        
+        artist.name = name
+        artist.age = age
+        artist.photo = photo
 
-        res.status(200).json({ message: 'Artist fetched', artist })
+        await artist.save()
+
+        res.status(200).json({ message: 'Artist updated', artist })
     } catch (err) {
-        res.send(500).json({ message: err.message })
+        res.status(500).json({ message: err.message })
     }
 })
 

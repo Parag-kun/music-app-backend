@@ -35,4 +35,14 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.delete('/:id', async (req, res) => {
+    try {
+        await Song.findByIdAndDelete(req.params.id)
+
+        res.status.json({ message: 'Deleted song with id: ' + req.params.id })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
 export default router

@@ -14,9 +14,16 @@ const songSchema = new Schema({
     genre: String,
     artistName: String,
     artistId: Schema.Types.ObjectId,
-    link: String,
+    link: {
+        type: String, 
+        required: true
+    },
     photo: String,
     numberOfListeners: {
+        type: Number,
+        default: 0
+    },
+    numberOfLikes: {
         type: Number,
         default: 0
     }

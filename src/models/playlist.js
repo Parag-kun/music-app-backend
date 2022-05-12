@@ -4,8 +4,15 @@ const { Schema, model } = mongoose
 
 const playlistSchema = new Schema({
     createdBy: String,
+    title: {
+        type: String,
+        default: 'No title'
+    },
     genre: String,
-    songs: [Schema.Types.ObjectId],
+    songs: {
+        type: [Schema.Types.ObjectId],
+        default: []
+    },
     photo: String
 })
 

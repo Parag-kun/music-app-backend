@@ -20,7 +20,8 @@ const userSchema = new Schema({
     likedSongs: {
         type: [Schema.Types.ObjectId],
         default: []
-    }
+    },
+    photo: String
 })
 
 export default model('Users', userSchema)

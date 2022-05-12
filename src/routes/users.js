@@ -35,19 +35,6 @@ router.post('/register', validateUserRegister, async (req, res) => {
     res.status(200).json({message: 'User registered', token })
 })
 
-router.put('/addToLiked', checkUserAuth, async (req, res) => {
-    try {
-        const user = await User.findById(res.user._id)
-
-        user.likedSongs.push(req.body.id)
-        await user.save()
-
-        res.status(200).json({ message: 'Added successfully!', likedSongs: user.likedSongs })
-    } catch (err) {
-        res.status(500).json({ message: err.message })
-    }
-})
-
 router.post('/createPlaylist', checkUserAuth, async (req, res) => {
     try {
         const playlist = new Playlist({ ...req.body, createdBy: res.user.email })
@@ -60,6 +47,24 @@ router.post('/createPlaylist', checkUserAuth, async (req, res) => {
         await user.save()
 
         res.status(200).json({ message: 'Created successfully', playlist: newPlaylist })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
+router.put('/addToLiked', checkUserAuth, async (req, res) => {
+    try {
+        const user = await User.findById(res.user._id)
+
+        user.likedSongs.push(req.body.id)
+        await user.save()
+
+        const song = await Song.findById(req.body.id)
+        song.numberOfLikes++
+
+        await song.save()
+
+        res.status(200).json({ message: 'Added successfully!', likedSongs: user.likedSongs })
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
@@ -78,6 +83,23 @@ router.put('/addToPlaylist/:id', checkUserAuth, async (req, res) => {
     }
 })
 
+router.put('/', checkUserAuth, async (req, res) => {
+    try {
+        const { user } = res
+        const { name, DOB, photo } = req.body
+
+        user.name = name
+        user.DOB = DOB
+        user.photo = photo
+
+        await user.save()
+
+        res.status(200).json({ message: 'User updated', user })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
 router.get('/allPlaylists', checkUserAuth, async (req, res) => {
     try {
         const playlists = await Playlist.find({ createdBy: res.user.email })
@@ -88,7 +110,7 @@ router.get('/allPlaylists', checkUserAuth, async (req, res) => {
     }
 })
 
-router.get('isListeningSong', checkUserAuth, async (req, res) => {
+router.get('/isListeningSong', checkUserAuth, async (req, res) => {
     try {
         const song = await Song.findById(req.body.id)
         const artist = await Artist.find({ name: song.createdBy })
