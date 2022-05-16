@@ -31,9 +31,9 @@ export const validateUserRegister = async ({ body: { email } }, res, next) => {
     }
 }
 
-export const validateArtistLogin = async ({ body: { name, password }}, res, next) => {
+export const validateArtistLogin = async ({ body: { email, password }}, res, next) => {
     try {
-        const artist = await Artist.findOne({ name })
+        const artist = await Artist.findOne({ email })
         const match = await bcryptjs.compare(password, artist?.password ?? '')
 
         if (!artist) res.status(400).json({ message: 'Artist does not exist!' })
@@ -48,9 +48,9 @@ export const validateArtistLogin = async ({ body: { name, password }}, res, next
     }
 }
 
-export const validateArtistRegister = async ({ body: { name } }, res, next) => {
+export const validateArtistRegister = async ({ body: { email } }, res, next) => {
     try {
-        const artist = await Artist.exists({ name })
+        const artist = await Artist.exists({ email })
 
         if (artist) res.status(400).json({ message: 'Artist already exists!' })
         else next()

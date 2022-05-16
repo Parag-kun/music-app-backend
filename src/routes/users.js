@@ -13,10 +13,10 @@ import { checkUserAuth } from '../utils/auth.js'
 
 const router = Router()
 
-const generateToken = user => jwt.sign(JSON.stringify(user), process.env.SECRET_KEY)
+const generateToken = user => jwt.sign({ id: user._id, email: user.email}, process.env.SECRET_KEY)
 
 router.post('/login', validateUserLogin, (req, res) => {
-    res.status(200).json({ message: 'User logged in', token: generateToken(res.user) })
+    res.status(200).json({ message: 'User logged in', token: generateToken(res.user), user: res.user })
 })
 
 router.post('/register', validateUserRegister, async (req, res) => {
@@ -32,29 +32,12 @@ router.post('/register', validateUserRegister, async (req, res) => {
 
     const token = generateToken(newUser)
 
-    res.status(200).json({message: 'User registered', token })
+    res.status(200).json({message: 'User registered', token, user: newUser })
 })
 
-router.post('/createPlaylist', checkUserAuth, async (req, res) => {
+router.put('/likeSong', checkUserAuth, async (req, res) => {
     try {
-        const playlist = new Playlist({ ...req.body, createdBy: res.user.email })
-
-        const user = await User.findById(res.user._id)
-        const newPlaylist = await playlist.save()
-
-        user.playlists.push(newPlaylist._id)
-
-        await user.save()
-
-        res.status(200).json({ message: 'Created successfully', playlist: newPlaylist })
-    } catch (err) {
-        res.status(500).json({ message: err.message })
-    }
-})
-
-router.put('/addToLiked', checkUserAuth, async (req, res) => {
-    try {
-        const user = await User.findById(res.user._id)
+        const user = await User.findById(res.user.id)
 
         user.likedSongs.push(req.body.id)
         await user.save()
@@ -70,47 +53,20 @@ router.put('/addToLiked', checkUserAuth, async (req, res) => {
     }
 })
 
-router.put('/addToPlaylist/:id', checkUserAuth, async (req, res) => {
-    try {
-        const playlist = await Playlist.findById(req.params.id)
-
-        playlist.songs.push(req.body.id)
-        await playlist.save()
-
-        res.status(200).json({ message: 'Added successfully', playlist })
-    } catch (err) {
-        res.status(500).json({ message: err.message })
-    }
-})
-
 router.put('/', checkUserAuth, async (req, res) => {
     try {
         const { user } = res
         const { name, DOB, photo } = req.body
 
-        user.name = name
-        user.DOB = DOB
-        user.photo = photo
+        const updatedUser = await User.findByIdAndUpdate(user.id, { name, DOB, photo }, { new: true })
 
-        await user.save()
-
-        res.status(200).json({ message: 'User updated', user })
+        res.status(200).json({ message: 'User updated', user: updatedUser })
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
 })
 
-router.get('/allPlaylists', checkUserAuth, async (req, res) => {
-    try {
-        const playlists = await Playlist.find({ createdBy: res.user.email })
-
-        res.status(200).json({ message: 'Fetched all user playlists', playlists })
-    } catch (err) {
-        res.status(500).json({ message: err.message })
-    }
-})
-
-router.get('/isListeningSong', checkUserAuth, async (req, res) => {
+router.put('/isListeningSong', checkUserAuth, async (req, res) => {
     try {
         const song = await Song.findById(req.body.id)
         const artist = await Artist.find({ name: song.createdBy })
@@ -122,6 +78,33 @@ router.get('/isListeningSong', checkUserAuth, async (req, res) => {
         await artist.save()
 
         res.status(200).json({ message: 'Listener has been added' })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
+router.get('/likedSongs', checkUserAuth, async (req, res) => {
+    try {
+        const { likedSongs: songIds } = await User.findById(res.user.id)
+
+        const songs = []
+
+        for (let songId of songIds) {
+            const song = await Song.findById(songId)
+            songs.push(song)
+        }
+
+        res.status(200).json({ message: 'Fetched all liked songs', songs })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
+router.get('/playlists', checkUserAuth, async (req, res) => {
+    try {
+        const playlists = await Playlist.find({ createdBy: res.user.email })
+
+        res.status(200).json({ message: 'Fetched all user playlists', playlists })
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
